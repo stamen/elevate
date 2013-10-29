@@ -1,0 +1,20 @@
+{
+  "name": "elevate",
+  "version": "0.0.0",
+  "description": "Enrich GeoJSON features using the MapQuest Open Elevation API",
+  "bin": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stamen/elevate.git"
+  },
+  "author": "Seth Fitzsimmons <seth@mojodna.net>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/stamen/elevate/issues"
+  },
+  "dependencies": {
+    "crequest": "~0.1.2",
+    "async": "~0.2.9",
+    "require-env": "0.0.3"
+  }
+}
