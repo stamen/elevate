@@ -1,6 +1,6 @@
 {
   "name": "elevate",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Enrich GeoJSON features using the MapQuest Open Elevation API",
   "bin": "index.js",
   "repository": {
