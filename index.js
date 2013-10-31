@@ -6,12 +6,21 @@ var path = require("path"),
     util = require("util");
 
 var async = require("async"),
-    env = require("require-env"),
-    request = require("crequest");
+    request = require("crequest"),
+    optimist = require("optimist")
+      .usage("$0 (-k | --key) <MapQuest API key> file [files...]")
+      .alias("k", "key"),
+    argv = optimist.argv,
+    argc = argv._;
+
+var mapQuestKey = argv.key || process.env.MAPQUEST_API_KEY;
+if (!mapQuestKey) {
+  optimist.showHelp();
+  process.exit(1);
+}
 
 // TODO make units configurable
-var MAPQUEST_URL = util.format("http://open.mapquestapi.com/elevation/v1/profile?key=%s&unit=f",
-                               env.require("MAPQUEST_API_KEY"));
+var MAPQUEST_URL = util.format("http://open.mapquestapi.com/elevation/v1/profile?key=%s&unit=f", mapQuestKey);
 
 var getGeometries = function(data) {
   switch (data.type) {

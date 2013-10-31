@@ -15,6 +15,6 @@
   "dependencies": {
     "crequest": "~0.1.2",
     "async": "~0.2.9",
-    "require-env": "~0.0.3"
+    "optimist": "~0.6.0"
   }
 }
