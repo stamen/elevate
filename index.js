@@ -92,6 +92,8 @@ argc.forEach(function(filename) {
     }
 
     if (data.type === "FeatureCollection") {
+      // TODO set heightRange / distanceRange on each Feature too (and roll-up)
+
       data.properties = data.properties || {};
       var ascending = function(a, b) { return a - b; };
       heights.sort(ascending);
@@ -99,6 +101,8 @@ argc.forEach(function(filename) {
       data.properties.heightRange = [heights[0], heights[heights.length - 1]];
       data.properties.distanceRange = [distances[0], distances[distances.length - 1]];
     }
+
+    // TODO add ranges when data.type === "Feature"
 
     console.log("%j", data);
   });
