@@ -37,8 +37,11 @@ var getGeometries = function(data) {
   }
 };
 
-process.argv.slice(2).forEach(function(filename) {
-  var data = require(path.join(process.cwd(), filename));
+argc.forEach(function(filename) {
+  // data is a Feature or FeatureCollection
+  var data = require(path.join(process.cwd(), filename)),
+      heights = [],
+      distances = [];
 
   var geometries = getGeometries(data);
 
@@ -73,8 +76,10 @@ process.argv.slice(2).forEach(function(filename) {
       // add height as Z, distance as M
       geometry.coordinates = geometry.coordinates.map(function(coords, i) {
         var d = profile[i];
-        coords.push(d.height, d.distance);
-
+        coords[2] = d.height;
+        coords[3] = d.distance;
+        heights.push(d.height);
+        distances.push(d.distance);
         return coords;
       });
 
@@ -84,6 +89,15 @@ process.argv.slice(2).forEach(function(filename) {
     if (err) {
       console.error(err);
       return;
+    }
+
+    if (data.type === "FeatureCollection") {
+      data.properties = data.properties || {};
+      var ascending = function(a, b) { return a - b; };
+      heights.sort(ascending);
+      distances.sort(ascending);
+      data.properties.heightRange = [heights[0], heights[heights.length - 1]];
+      data.properties.distanceRange = [distances[0], distances[distances.length - 1]];
     }
 
     console.log("%j", data);
